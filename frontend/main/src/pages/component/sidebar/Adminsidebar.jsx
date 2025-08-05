@@ -2,12 +2,15 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import {
   FaTachometerAlt,
-  FaUtensils,
-  FaCalendarAlt,
   FaBook,
+  FaCalendarAlt,
+  FaTasks,
   FaEnvelope,
   FaUsers,
   FaSignOutAlt,
+  FaChartLine,
+  FaGraduationCap,
+  FaCog
 } from "react-icons/fa";
 import { logout } from "../../../utils/authUtils";
 
@@ -21,7 +24,7 @@ const Adminsidebar = () => {
   return (
     <aside className="w-64 bg-gradient-to-b from-gray-900 to-black p-6 flex flex-col justify-between min-h-screen shadow-lg">
       <div>
-        <h2 className="text-3xl font-bold mb-8 text-white text-center">🍽️ Tabletime</h2>
+        <h2 className="text-3xl font-bold mb-8 text-white text-center">📚 StudyPlanner</h2>
         <nav className="space-y-4 text-sm">
           <SidebarItem
             icon={<FaTachometerAlt />}
@@ -30,30 +33,35 @@ const Adminsidebar = () => {
           />
           
           <SidebarItem
-            icon={<FaUtensils />}
-            label="Food Menu"
-            onClick={() => navigate("/adminfood")}
+            icon={<FaBook />}
+            label="Course Management"
+            onClick={() => navigate("/coursemanagement")}
           />
-          <SidebarItem
+          {/* <SidebarItem
             icon={<FaCalendarAlt />}
-            label="Table Management"
-            onClick={() => navigate("/admintables")}
-          />
+            label="Schedule Management"
+            onClick={() => navigate("/schedulemanagement")}
+          /> */}
           <SidebarItem
             icon={<FaUsers />}
-            label="Customers"
+            label="Students"
             onClick={() => navigate("/UserList")}
           />
           <SidebarItem
-            icon={<FaBook />}
-            label="Announcements"
+            icon={<FaTasks />}
+            label="Assignment Management"
             onClick={() => navigate("/adminannouncement")}
           />
           <SidebarItem
-            icon={<FaEnvelope />}
-            label="Customer Messages"
+            icon={<FaChartLine />}
+            label="student requests"
             onClick={() => navigate("/adminrequest")}
           />
+          {/* <SidebarItem
+            icon={<FaGraduationCap />}
+            label="Achievement System"
+            onClick={() => navigate("/adminyoga")}
+          /> */}
         </nav>
       </div>
 
@@ -65,7 +73,7 @@ const Adminsidebar = () => {
           onClick={handleLogout}
         />
         <p className="text-xs text-gray-400 text-center mt-4">
-          © {new Date().getFullYear()} TasteBite
+          © {new Date().getFullYear()} StudyPlanner
         </p>
       </div>
     </aside>
@@ -75,11 +83,11 @@ const Adminsidebar = () => {
 const SidebarItem = ({ icon, label, onClick }) => (
   <div
     onClick={onClick}
-    className="flex items-center gap-3 text-gray-300 hover:text-amber-400 cursor-pointer transition py-2 px-2 rounded hover:bg-gray-800"
+    className="flex items-center gap-3 text-gray-300 hover:text-blue-400 cursor-pointer transition py-2 px-2 rounded hover:bg-gray-800"
   >
     <span className="text-lg">{icon}</span>
     <span className="text-base">{label}</span>
   </div>
 );
 
-export default Adminsidebar;
+export default Adminsidebar;

@@ -10,7 +10,7 @@ require("dotenv").config();
 //     dialect: "mysql",
 //     logging: true,
 // });
-const sequelize = new Sequelize('jenish','root','root', {
+const sequelize = new Sequelize('sushant','root','0852', {
     host: process.env.DB_HOST,
     dialect: "mysql",
     logging: false,

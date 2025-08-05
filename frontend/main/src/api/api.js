@@ -1,9 +1,8 @@
 import axios, { Axios } from "axios";
 import { data } from "react-router";
 
-
 const ApiFormData= axios.create({
-    baseURL:'http://localhost:5009',
+    baseURL:'http://localhost:5000',
     withCredentials: true,
     headers: {
         "Content-Type":"multipart/form-data",
@@ -11,7 +10,7 @@ const ApiFormData= axios.create({
 });
 
 const Api = axios.create({
-    baseURL:'http://localhost:5009',
+    baseURL:'http://localhost:5000',
     //baseUrl:'http://localhost:5000',
     withCredentials:true,
     headers: {
@@ -40,6 +39,7 @@ Api.interceptors.request.use(
 export const loginUserApi = (data) => {
   return  Api.post("api/login/login",data);
 }
+
 export const createUserApi = (data) =>
     ApiFormData.post("/api/users/createusers",data);
 

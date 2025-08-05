@@ -47,7 +47,7 @@ const Signupuser = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-900 via-orange-800 to-red-700 px-4">
       <div className="bg-white bg-opacity-10 backdrop-blur-md shadow-2xl rounded-2xl p-8 w-full max-w-md border border-amber-300">
         <div className="text-center mb-6">
-          <h1 className="text-4xl font-bold text-amber-300 mb-2">🍽️ TasteBite</h1>
+          <h1 className="text-4xl font-bold text-amber-300 mb-2"></h1>
           <h2 className="text-2xl font-semibold text-amber-200">Join Our Family</h2>
           <p className="text-amber-300 text-sm mt-2">Create your account to start dining</p>
         </div>
@@ -135,7 +135,6 @@ const Signupuser = () => {
 
         <div className="mt-8 text-center">
           <p className="text-xs text-amber-300">
-            Join TasteBite for exclusive dining experiences and special offers
           </p>
         </div>
       </div>

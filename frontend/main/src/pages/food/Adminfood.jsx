@@ -5,22 +5,23 @@ import { jwtDecode } from 'jwt-decode';
 import { getToken } from '../../utils/authUtils';
 import toast from 'react-hot-toast';
 
-const Adminfood = () => {
+const CourseManagement = () => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState('');
-  const [foodItems, setFoodItems] = useState([]);
+  const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAddForm, setShowAddForm] = useState(false);
-  const [editingItem, setEditingItem] = useState(null);
+  const [editingCourse, setEditingCourse] = useState(null);
   
   // Form state
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    price: '',
-    category: 'main-course',
+    instructor: '',
+    duration: '',
+    level: 'beginner',
     image: '',
-    available: true
+    active: true
   });
 
   useEffect(() => {
@@ -38,47 +39,50 @@ const Adminfood = () => {
       setUserName('Admin');
     }
 
-    fetchFoodItems();
+    fetchCourses();
   }, []);
 
-  const fetchFoodItems = async () => {
+  const fetchCourses = async () => {
     try {
       setLoading(true);
       // Mock data - in real app, this would be an API call
-      const mockFoodItems = [
+      const mockCourses = [
         {
           id: 1,
-          name: "Grilled Salmon",
-          description: "Fresh Atlantic salmon grilled to perfection with herbs and lemon",
-          price: 24.99,
-          category: "main-course",
-          image: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400",
-          available: true
+          name: "Mathematics Fundamentals",
+          description: "Basic mathematics concepts including algebra, geometry, and arithmetic",
+          instructor: "Dr. Sarah Johnson",
+          duration: "12 weeks",
+          level: "beginner",
+          image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400",
+          active: true
         },
         {
           id: 2,
-          name: "Caesar Salad",
-          description: "Crisp romaine lettuce with parmesan cheese and caesar dressing",
-          price: 12.99,
-          category: "appetizer",
-          image: "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400",
-          available: true
+          name: "Advanced Physics",
+          description: "Advanced physics concepts including mechanics, thermodynamics, and quantum physics",
+          instructor: "Prof. Michael Chen",
+          duration: "16 weeks",
+          level: "advanced",
+          image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400",
+          active: true
         },
         {
           id: 3,
-          name: "Beef Burger",
-          description: "Juicy beef patty with fresh vegetables and special sauce",
-          price: 16.99,
-          category: "main-course",
-          image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400",
-          available: true
+          name: "English Literature",
+          description: "Study of classic and modern English literature with critical analysis",
+          instructor: "Dr. Emily Davis",
+          duration: "14 weeks",
+          level: "intermediate",
+          image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400",
+          active: true
         }
       ];
       
-      setFoodItems(mockFoodItems);
+      setCourses(mockCourses);
     } catch (error) {
-      console.error('Error fetching food items:', error);
-      toast.error('Failed to load food items');
+      console.error('Error fetching courses:', error);
+      toast.error('Failed to load courses');
     } finally {
       setLoading(false);
     }
@@ -87,143 +91,181 @@ const Adminfood = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!formData.name || !formData.description || !formData.price) {
+    if (!formData.name || !formData.description || !formData.instructor || !formData.duration) {
       toast.error('Please fill in all required fields');
       return;
     }
 
     try {
-      if (editingItem) {
-        // Update existing item
-        const updatedItems = foodItems.map(item => 
-          item.id === editingItem.id ? { ...formData, id: item.id } : item
+      if (editingCourse) {
+        // Update existing course
+        const updatedCourses = courses.map(course => 
+          course.id === editingCourse.id ? { ...formData, id: course.id } : course
         );
-        setFoodItems(updatedItems);
-        toast.success('Food item updated successfully!');
+        setCourses(updatedCourses);
+        toast.success('Course updated successfully!');
       } else {
-        // Add new item
-        const newItem = {
+        // Add new course
+        const newCourse = {
           ...formData,
-          id: Date.now(),
-          price: parseFloat(formData.price)
+          id: Date.now()
         };
-        setFoodItems([...foodItems, newItem]);
-        toast.success('Food item added successfully!');
+        setCourses([...courses, newCourse]);
+        toast.success('Course added successfully!');
       }
       
       // Reset form
       setFormData({
         name: '',
         description: '',
-        price: '',
-        category: 'main-course',
+        instructor: '',
+        duration: '',
+        level: 'beginner',
         image: '',
-        available: true
+        active: true
       });
       setShowAddForm(false);
-      setEditingItem(null);
+      setEditingCourse(null);
     } catch (error) {
-      console.error('Error saving food item:', error);
-      toast.error('Failed to save food item');
+      console.error('Error saving course:', error);
+      toast.error('Failed to save course');
     }
   };
 
-  const handleEdit = (item) => {
-    setEditingItem(item);
+  const handleEdit = (course) => {
+    setEditingCourse(course);
     setFormData({
-      name: item.name,
-      description: item.description,
-      price: item.price.toString(),
-      category: item.category,
-      image: item.image,
-      available: item.available
+      name: course.name,
+      description: course.description,
+      instructor: course.instructor,
+      duration: course.duration,
+      level: course.level,
+      image: course.image,
+      active: course.active
     });
     setShowAddForm(true);
   };
 
-  const handleDelete = (itemId) => {
-    if (window.confirm('Are you sure you want to delete this food item?')) {
-      const updatedItems = foodItems.filter(item => item.id !== itemId);
-      setFoodItems(updatedItems);
-      toast.success('Food item deleted successfully!');
+  const handleDelete = (courseId) => {
+    if (window.confirm('Are you sure you want to delete this course?')) {
+      const updatedCourses = courses.filter(course => course.id !== courseId);
+      setCourses(updatedCourses);
+      toast.success('Course deleted successfully!');
     }
   };
 
-  const toggleAvailability = (itemId) => {
-    const updatedItems = foodItems.map(item => 
-      item.id === itemId ? { ...item, available: !item.available } : item
+  const toggleActive = (courseId) => {
+    const updatedCourses = courses.map(course => 
+      course.id === courseId ? { ...course, active: !course.active } : course
     );
-    setFoodItems(updatedItems);
-    toast.success('Availability updated!');
+    setCourses(updatedCourses);
+    toast.success('Course status updated!');
   };
 
-  const categories = [
-    { value: 'appetizer', label: 'Appetizer' },
-    { value: 'main-course', label: 'Main Course' },
-    { value: 'dessert', label: 'Dessert' },
-    { value: 'beverage', label: 'Beverage' }
+  const levels = [
+    { value: 'beginner', label: 'Beginner' },
+    { value: 'intermediate', label: 'Intermediate' },
+    { value: 'advanced', label: 'Advanced' }
   ];
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-amber-900 via-orange-800 to-red-700 text-amber-500">
+    <div className="flex min-h-screen bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-700 text-blue-100">
       <Adminsidebar />
 
       <div className="flex-1 p-8">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-amber-300">🍽️ Food Menu Management</h1>
-          <div className="text-lg text-amber-200">Welcome, {userName}!</div>
+          <h1 className="text-3xl font-bold text-blue-300">📚 Course Management</h1>
+          <div className="text-lg text-blue-200">Welcome, {userName}!</div>
         </div>
 
-        {/* Add Food Button */}
+        {/* Add Course Button */}
         <div className="mb-6">
           <button
             onClick={() => {
               setShowAddForm(!showAddForm);
-              setEditingItem(null);
+              setEditingCourse(null);
               setFormData({
                 name: '',
                 description: '',
-                price: '',
-                category: 'main-course',
+                instructor: '',
+                duration: '',
+                level: 'beginner',
                 image: '',
-                available: true
+                active: true
               });
             }}
-            className="bg-amber-600 text-white px-6 py-3 rounded-lg hover:bg-amber-700 transition duration-300 font-semibold"
+            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300 font-semibold"
           >
-            {showAddForm ? 'Cancel' : '➕ Add New Food Item'}
+            {showAddForm ? 'Cancel' : '➕ Add New Course'}
           </button>
         </div>
 
-        {/* Add/Edit Food Form */}
+        {/* Add/Edit Course Form */}
         {showAddForm && (
-          <div className="bg-white bg-opacity-10 p-6 rounded-xl mb-8 shadow-lg border border-amber-300">
-            <h2 className="text-2xl font-semibold mb-4 text-amber-200">
-              {editingItem ? '✏️ Edit Food Item' : '🍽️ Add New Food Item'}
+          <div className="bg-white bg-opacity-10 p-6 rounded-xl mb-8 shadow-lg border border-blue-300">
+            <h2 className="text-2xl font-semibold mb-4 text-blue-200">
+              {editingCourse ? '✏️ Edit Course' : '📚 Add New Course'}
             </h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-2 text-amber-200">Food Name *</label>
+                  <label className="block text-sm font-medium mb-2 text-blue-200">Course Name *</label>
                   <input
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
-                    className="w-full px-4 py-2 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white bg-opacity-10 text-white placeholder-amber-200"
-                    placeholder="Enter food name"
+                    className="w-full px-4 py-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white bg-opacity-10 text-white placeholder-blue-200"
+                    placeholder="Enter course name"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-2 text-amber-200">Category</label>
+                  <label className="block text-sm font-medium mb-2 text-blue-200">Instructor *</label>
+                  <input
+                    type="text"
+                    value={formData.instructor}
+                    onChange={(e) => setFormData({...formData, instructor: e.target.value})}
+                    className="w-full px-4 py-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white bg-opacity-10 text-white placeholder-blue-200"
+                    placeholder="Enter instructor name"
+                    required
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium mb-2 text-blue-200">Description *</label>
+                <textarea
+                  value={formData.description}
+                  onChange={(e) => setFormData({...formData, description: e.target.value})}
+                  className="w-full px-4 py-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white bg-opacity-10 text-white placeholder-blue-200"
+                  rows="3"
+                  placeholder="Describe the course content..."
+                  required
+                />
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-blue-200">Duration *</label>
+                  <input
+                    type="text"
+                    value={formData.duration}
+                    onChange={(e) => setFormData({...formData, duration: e.target.value})}
+                    className="w-full px-4 py-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white bg-opacity-10 text-white placeholder-blue-200"
+                    placeholder="e.g., 12 weeks, 3 months"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-blue-200">Level</label>
                   <select
-                    value={formData.category}
-                    onChange={(e) => setFormData({...formData, category: e.target.value})}
-                    className="w-full px-4 py-2 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white bg-opacity-10 text-white"
+                    value={formData.level}
+                    onChange={(e) => setFormData({...formData, level: e.target.value})}
+                    className="w-full px-4 py-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white bg-opacity-10 text-white"
                   >
-                    {categories.map(category => (
-                      <option key={category.value} value={category.value} className="text-gray-800">
-                        {category.label}
+                    {levels.map(level => (
+                      <option key={level.value} value={level.value} className="text-gray-800">
+                        {level.label}
                       </option>
                     ))}
                   </select>
@@ -231,75 +273,49 @@ const Adminfood = () => {
               </div>
               
               <div>
-                <label className="block text-sm font-medium mb-2 text-amber-200">Description *</label>
-                <textarea
-                  value={formData.description}
-                  onChange={(e) => setFormData({...formData, description: e.target.value})}
-                  className="w-full px-4 py-2 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white bg-opacity-10 text-white placeholder-amber-200"
-                  rows="3"
-                  placeholder="Describe the food item..."
-                  required
+                <label className="block text-sm font-medium mb-2 text-blue-200">Course Image URL</label>
+                <input
+                  type="url"
+                  value={formData.image}
+                  onChange={(e) => setFormData({...formData, image: e.target.value})}
+                  className="w-full px-4 py-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white bg-opacity-10 text-white placeholder-blue-200"
+                  placeholder="https://example.com/course-image.jpg"
                 />
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-amber-200">Price ($) *</label>
-                  <input
-                    type="number"
-                    step="0.01"
-                    min="0"
-                    value={formData.price}
-                    onChange={(e) => setFormData({...formData, price: e.target.value})}
-                    className="w-full px-4 py-2 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white bg-opacity-10 text-white placeholder-amber-200"
-                    placeholder="0.00"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-amber-200">Image URL</label>
-                  <input
-                    type="url"
-                    value={formData.image}
-                    onChange={(e) => setFormData({...formData, image: e.target.value})}
-                    className="w-full px-4 py-2 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white bg-opacity-10 text-white placeholder-amber-200"
-                    placeholder="https://example.com/image.jpg"
-                  />
-                </div>
               </div>
               
               <div className="flex items-center">
                 <input
                   type="checkbox"
-                  id="available"
-                  checked={formData.available}
-                  onChange={(e) => setFormData({...formData, available: e.target.checked})}
-                  className="w-4 h-4 text-amber-600 bg-white bg-opacity-10 border-amber-300 rounded focus:ring-amber-500"
+                  id="active"
+                  checked={formData.active}
+                  onChange={(e) => setFormData({...formData, active: e.target.checked})}
+                  className="w-4 h-4 text-blue-600 bg-white bg-opacity-10 border-blue-300 rounded focus:ring-blue-500"
                 />
-                <label htmlFor="available" className="ml-2 text-sm text-amber-200">
-                  Available for ordering
+                <label htmlFor="active" className="ml-2 text-sm text-blue-200">
+                  Course is active and available for enrollment
                 </label>
               </div>
               
               <div className="flex gap-4">
                 <button
                   type="submit"
-                  className="bg-amber-600 text-white px-6 py-2 rounded-lg hover:bg-amber-700 transition duration-300 font-semibold"
+                  className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300 font-semibold"
                 >
-                  {editingItem ? 'Update Item' : 'Add Item'}
+                  {editingCourse ? 'Update Course' : 'Add Course'}
                 </button>
-                {editingItem && (
+                {editingCourse && (
                   <button
                     type="button"
                     onClick={() => {
-                      setEditingItem(null);
+                      setEditingCourse(null);
                       setFormData({
                         name: '',
                         description: '',
-                        price: '',
-                        category: 'main-course',
+                        instructor: '',
+                        duration: '',
+                        level: 'beginner',
                         image: '',
-                        available: true
+                        active: true
                       });
                     }}
                     className="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition duration-300"
@@ -312,71 +328,74 @@ const Adminfood = () => {
           </div>
         )}
 
-        {/* Food Items List */}
-        <div className="bg-white bg-opacity-10 rounded-xl p-6 shadow-lg border border-amber-300">
-          <h2 className="text-2xl font-semibold mb-6 text-amber-200">📋 Current Menu Items</h2>
+        {/* Courses List */}
+        <div className="bg-white bg-opacity-10 rounded-xl p-6 shadow-lg border border-blue-300">
+          <h2 className="text-2xl font-semibold mb-6 text-blue-200">📋 Current Courses</h2>
           
           {loading ? (
             <div className="text-center py-8">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-400 mx-auto mb-4"></div>
-              <p className="text-amber-200">Loading menu items...</p>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-400 mx-auto mb-4"></div>
+              <p className="text-blue-200">Loading courses...</p>
             </div>
-          ) : foodItems.length === 0 ? (
-            <div className="text-center py-8 text-amber-200">
-              <p className="text-lg">No food items found.</p>
-              <p className="text-sm mt-2">Add your first menu item to get started!</p>
+          ) : courses.length === 0 ? (
+            <div className="text-center py-8 text-blue-200">
+              <p className="text-lg">No courses found.</p>
+              <p className="text-sm mt-2">Add your first course to get started!</p>
             </div>
           ) : (
             <div className="grid gap-6">
-              {foodItems.map((item) => (
-                <div key={item.id} className="bg-white bg-opacity-5 p-6 rounded-lg border border-amber-300 border-opacity-30 hover:bg-opacity-10 transition">
+              {courses.map((course) => (
+                <div key={course.id} className="bg-white bg-opacity-5 p-6 rounded-lg border border-blue-300 border-opacity-30 hover:bg-opacity-10 transition">
                   <div className="flex items-start justify-between">
                     <div className="flex items-start space-x-4">
-                      {item.image && (
+                      {course.image && (
                         <img
-                          src={item.image}
-                          alt={item.name}
+                          src={course.image}
+                          alt={course.name}
                           className="w-20 h-20 object-cover rounded-lg"
                         />
                       )}
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
-                          <h3 className="text-xl font-semibold text-amber-200">{item.name}</h3>
+                          <h3 className="text-xl font-semibold text-blue-200">{course.name}</h3>
                           <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                            item.available 
+                            course.active 
                               ? 'bg-green-600 bg-opacity-20 text-green-300' 
                               : 'bg-red-600 bg-opacity-20 text-red-300'
                           }`}>
-                            {item.available ? 'Available' : 'Unavailable'}
+                            {course.active ? 'Active' : 'Inactive'}
                           </span>
-                          <span className="px-2 py-1 bg-amber-600 bg-opacity-20 text-amber-300 rounded-full text-xs">
-                            {item.category}
+                          <span className="px-2 py-1 bg-blue-600 bg-opacity-20 text-blue-300 rounded-full text-xs">
+                            {course.level}
                           </span>
                         </div>
-                        <p className="text-amber-100 mb-2">{item.description}</p>
-                        <p className="text-2xl font-bold text-amber-300">${item.price}</p>
+                        <p className="text-blue-100 mb-2">{course.description}</p>
+                        <div className="flex gap-4 text-sm text-blue-200">
+                          <span>👨‍🏫 {course.instructor}</span>
+                          <span>⏱️ {course.duration}</span>
+                        </div>
                       </div>
                     </div>
                     
                     <div className="flex gap-2">
                       <button
-                        onClick={() => handleEdit(item)}
-                        className="bg-amber-600 text-white px-3 py-1 rounded hover:bg-amber-700 transition text-sm"
+                        onClick={() => handleEdit(course)}
+                        className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition text-sm"
                       >
                         ✏️ Edit
                       </button>
                       <button
-                        onClick={() => toggleAvailability(item.id)}
+                        onClick={() => toggleActive(course.id)}
                         className={`px-3 py-1 rounded transition text-sm ${
-                          item.available
+                          course.active
                             ? 'bg-red-600 text-white hover:bg-red-700'
                             : 'bg-green-600 text-white hover:bg-green-700'
                         }`}
                       >
-                        {item.available ? '🚫 Disable' : '✅ Enable'}
+                        {course.active ? '🚫 Deactivate' : '✅ Activate'}
                       </button>
                       <button
-                        onClick={() => handleDelete(item.id)}
+                        onClick={() => handleDelete(course.id)}
                         className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition text-sm"
                       >
                         🗑️ Delete
@@ -389,31 +408,31 @@ const Adminfood = () => {
           )}
         </div>
 
-        {/* Menu Statistics */}
-        <div className="mt-8 bg-white bg-opacity-5 rounded-xl p-6 border border-amber-300 border-opacity-30">
-          <h3 className="text-xl font-semibold text-amber-200 mb-4">📊 Menu Statistics</h3>
+        {/* Course Statistics */}
+        <div className="mt-8 bg-white bg-opacity-5 rounded-xl p-6 border border-blue-300 border-opacity-30">
+          <h3 className="text-xl font-semibold text-blue-200 mb-4">📊 Course Statistics</h3>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-amber-300">{foodItems.length}</div>
-              <div className="text-amber-200 text-sm">Total Items</div>
+              <div className="text-2xl font-bold text-blue-300">{courses.length}</div>
+              <div className="text-blue-200 text-sm">Total Courses</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-amber-300">
-                {foodItems.filter(item => item.available).length}
+              <div className="text-2xl font-bold text-blue-300">
+                {courses.filter(course => course.active).length}
               </div>
-              <div className="text-amber-200 text-sm">Available Items</div>
+              <div className="text-blue-200 text-sm">Active Courses</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-amber-300">
-                ${foodItems.reduce((sum, item) => sum + item.price, 0).toFixed(2)}
+              <div className="text-2xl font-bold text-blue-300">
+                {courses.filter(course => course.level === 'beginner').length}
               </div>
-              <div className="text-amber-200 text-sm">Total Menu Value</div>
+              <div className="text-blue-200 text-sm">Beginner Courses</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-amber-300">
-                {categories.length}
+              <div className="text-2xl font-bold text-blue-300">
+                {levels.length}
               </div>
-              <div className="text-amber-200 text-sm">Categories</div>
+              <div className="text-blue-200 text-sm">Difficulty Levels</div>
             </div>
           </div>
         </div>
@@ -422,4 +441,4 @@ const Adminfood = () => {
   );
 };
 
-export default Adminfood; 
+export default CourseManagement; 

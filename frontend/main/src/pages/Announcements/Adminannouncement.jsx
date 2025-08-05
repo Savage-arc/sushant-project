@@ -72,7 +72,7 @@ const AdminAnnouncement = () => {
       <div className="flex-1 p-8">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-amber-300">📢 Restaurant Announcements</h1>
+          <h1 className="text-3xl font-bold text-amber-300">📢 Announcements</h1>
           <button
             onClick={() => setFormVisible(!formVisible)}
             className="bg-amber-600 hover:bg-amber-700 px-5 py-2 rounded-lg font-semibold transition"
@@ -89,7 +89,7 @@ const AdminAnnouncement = () => {
               placeholder="Announcement Title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full p-4 rounded-lg bg-white bg-opacity-10 border border-amber-300 text-white placeholder-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-500"
+              className="w-full p-4 rounded-lg bg-white bg-opacity-10 border border-amber-300 text-black placeholder-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-500"
               required
             />
             <textarea
@@ -97,7 +97,7 @@ const AdminAnnouncement = () => {
               rows={5}
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              className="w-full p-4 rounded-lg bg-white bg-opacity-10 border border-amber-300 text-white placeholder-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-500"
+              className="w-full p-4 rounded-lg bg-white bg-opacity-10 border border-amber-300 text-black placeholder-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-500"
               required
             />
             <button
@@ -129,8 +129,8 @@ const AdminAnnouncement = () => {
               >
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h2 className="text-xl font-semibold text-amber-200">{item.title}</h2>
-                    <p className="text-amber-300 text-sm mt-1">📅 {new Date(item.date).toLocaleDateString()}</p>
+                    <h2 className="text-xl font-semibold text-black">{item.title}</h2>
+                    <p className="text-black text-sm mt-1">📅 {new Date(item.date).toLocaleDateString()}</p>
                   </div>
                   <button
                     onClick={() => handleDelete(item.id)}
@@ -139,7 +139,7 @@ const AdminAnnouncement = () => {
                     🗑️ Delete
                   </button>
                 </div>
-                <p className="text-amber-100 mt-2">{item.content}</p>
+                <p className="text-black' mt-2">{item.content}</p>
               </div>
             ))
           )}

@@ -39,29 +39,27 @@ const Admintables = () => {
       const mockBookingRequests = [
         {
           id: 1,
-          customerName: "John Smith",
-          customerEmail: "john.smith@email.com",
+          customerName: "user1",
+          customerEmail: "user1@email.com",
           customerPhone: "+1-555-0123",
           tableId: 1,
           tableName: "Table 1",
           date: "2024-01-15",
           time: "19:00",
           guests: 4,
-          specialRequests: "Window seat preferred",
           status: "pending",
           createdAt: "2024-01-10T10:30:00Z"
         },
         {
           id: 2,
-          customerName: "Sarah Johnson",
-          customerEmail: "sarah.j@email.com",
+          customerName: "user2",
+          customerEmail: "use2@email.com",
           customerPhone: "+1-555-0456",
           tableId: 3,
           tableName: "Table 3",
           date: "2024-01-16",
           time: "20:00",
           guests: 2,
-          specialRequests: "Anniversary celebration",
           status: "approved",
           createdAt: "2024-01-10T11:15:00Z"
         },
@@ -190,7 +188,7 @@ const Admintables = () => {
 
       <div className="flex-1 p-8">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-amber-300">📋 Table Booking Management</h1>
+          <h1 className="text-3xl font-bold text-amber-300">📋 study Management</h1>
           <div className="text-lg text-amber-200">Welcome, {userName}!</div>
         </div>
 

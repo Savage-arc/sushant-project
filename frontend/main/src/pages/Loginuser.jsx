@@ -63,7 +63,7 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-900 via-orange-800 to-red-700 px-4">
       <div className="bg-white bg-opacity-10 backdrop-blur-md shadow-2xl rounded-2xl p-8 w-full max-w-md border border-amber-300">
         <div className="text-center mb-6">
-          <h1 className="text-4xl font-bold text-amber-300 mb-2">🍽️ TasteBite</h1>
+          <h1 className="text-4xl font-bold text-amber-300 mb-2"></h1>
           <h2 className="text-2xl font-semibold text-amber-200">Welcome Back</h2>
           <p className="text-amber-300 text-sm mt-2">Sign in to your account</p>
         </div>
@@ -76,7 +76,7 @@ const Login = () => {
               placeholder="your.email@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white bg-opacity-10 text-white placeholder-amber-200"
+              className="w-full px-4 py-3 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white bg-opacity-10 text-black placeholder-amber-200"
               required
             />
           </div>
@@ -116,7 +116,7 @@ const Login = () => {
 
         <div className="mt-8 text-center">
           <p className="text-xs text-amber-300">
-            Experience the finest dining at TasteBite Restaurant
+            
           </p>
         </div>
       </div>

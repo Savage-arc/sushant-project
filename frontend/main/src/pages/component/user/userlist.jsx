@@ -72,13 +72,13 @@ const UserList = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-amber-900 via-orange-800 to-red-700 text-amber-500">
+    <div className="flex min-h-screen bg-gradient-to-br from-black via-black to-red-700 text-amber-500">
       <Adminsidebar />
 
       <div className="flex-1 p-8">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-amber-300">👥 Customer Management</h1>
-          <div className="text-lg text-amber-200">Restaurant Customers</div>
+          <h1 className="text-3xl font-bold text-amber-300"> user Management</h1>
+          <div className="text-lg text-amber-200"> total members</div>
         </div>
 
         {/* Statistics Card */}
@@ -87,7 +87,7 @@ const UserList = () => {
             <div className="text-3xl font-bold text-amber-300 mb-2">
               {loading ? "Loading..." : users.length}
             </div>
-            <div className="text-amber-200 text-lg">Total Customers</div>
+            <div className="text-amber-200 text-lg">Total members</div>
           </div>
         </div>
         
@@ -100,13 +100,13 @@ const UserList = () => {
         </button> */}
 
         {formVisible && (
-          <form onSubmit={handleAddUser} className="bg-white bg-opacity-10 p-6 rounded-xl mb-8 space-y-4 border border-amber-300">
+          <form onSubmit={handleAddUser} className="bg-black bg-opacity-10 p-6 rounded-xl mb-8 space-y-4 border border-black">
             <input
               type="text"
               placeholder="Customer Name"
               value={newUser.name}
               onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
-              className="w-full p-3 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white bg-opacity-10 text-white placeholder-amber-200"
+              className="w-full p-3 border border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 bg-black bg-opacity-10 text-white placeholder-black"
               required
             />
             <input
@@ -157,14 +157,14 @@ const UserList = () => {
             {users.map((user) => (
               <div key={user.id} className="bg-white bg-opacity-10 p-6 rounded-xl border border-amber-300 border-opacity-30 hover:bg-opacity-15 transition">
                 <div className="flex justify-between items-start mb-4">
-                  <h2 className="text-xl font-semibold text-amber-200">{user.name}</h2>
+                  <h2 className="text-xl font-semibold text-black">{user.name}</h2>
                   <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${
                     user.role === 'admin' ? 'bg-red-600 bg-opacity-20 text-red-300' : 'bg-green-600 bg-opacity-20 text-green-300'
                   }`}>
                     {user.role || 'customer'}
                   </span>
                 </div>
-                <div className="space-y-2 text-amber-100">
+                <div className="space-y-2 text-black">
                   <p><strong>📧 Email:</strong> {user.email}</p>
                   <p><strong>🎂 Age:</strong> {user.age}</p>
                   <p><strong>📍 Address:</strong> {user.address}</p>

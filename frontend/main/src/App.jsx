@@ -13,18 +13,18 @@ import Adminsidebar from './pages/component/sidebar/adminsidebar'
 import Userslidebar from './pages/component/sidebar/usersidebar'
 import UserDashboard from './pages/component/dashboard/user'
 import AdminDashboard from './pages/component/dashboard/admin'
-import Yoga from './pages/yoga/Useryoga'
-import Usercardio from './pages/cardio/usercardio'
-import UserWeight from './pages/weight/Userweight'
+import ProgressTracker from './pages/yoga/Useryoga'
+import StudyTimer from './pages/cardio/usercardio'
+import CourseMaterials from './pages/weight/Userweight'
 import AdminYoga from './pages/yoga/Adminyoga'
 import AdminCardio from './pages/cardio/Admincardio'
 import AdminWeight from './pages/weight/Adminweight'
 import AdminAnnouncement from './pages/Announcements/Adminannouncement'
-import UserAnnouncement from './pages/Announcements/Userannouncement'
+import Achievements from './pages/Announcements/userannouncement'
 import UserRequest from './pages/component/user/UserRequest'
 import AdminRequest from './pages/component/admin/AdminRequest'
-import Userfoodorder from './pages/food/Userfoodorder'
-import Usertablebooking from './pages/food/Usertablebooking'
+import TaskManager from './pages/food/Userfoodorder'
+import StudySchedule from './pages/food/Usertablebooking'
 import Adminfood from './pages/food/Adminfood'
 import Admintables from './pages/food/Admintables'
 import { ProtectedRoute, AdminProtectedRoute, UserProtectedRoute } from './components/protected'
@@ -56,7 +56,7 @@ const App = () => {
         }/>
         <Route path='/userannouncement' element={
           <ProtectedRoute>
-            <UserAnnouncement></UserAnnouncement>
+            <Achievements></Achievements>
           </ProtectedRoute>
         }/>
         
@@ -68,17 +68,17 @@ const App = () => {
         }/>
         <Route path='/useryoga' element={
           <UserProtectedRoute>
-            <Yoga></Yoga>
+            <ProgressTracker></ProgressTracker>
           </UserProtectedRoute>
         }/>
         <Route path='/usercardio' element={
           <UserProtectedRoute>
-            <Usercardio></Usercardio>
+            <StudyTimer></StudyTimer>
           </UserProtectedRoute>
         }/>
         <Route path='/userweight' element={
           <UserProtectedRoute>
-            <UserWeight></UserWeight>
+            <CourseMaterials></CourseMaterials>
           </UserProtectedRoute>
         }/>
         <Route path='/userrequest' element={
@@ -86,14 +86,14 @@ const App = () => {
             <UserRequest></UserRequest>
           </UserProtectedRoute>
         }/>
-        <Route path='/foodorder' element={
+        <Route path='/taskmanager' element={
           <UserProtectedRoute>
-            <Userfoodorder></Userfoodorder>
+            <TaskManager></TaskManager>
           </UserProtectedRoute>
         }/>
-        <Route path='/tablebooking' element={
+        <Route path='/studyschedule' element={
           <UserProtectedRoute>
-            <Usertablebooking></Usertablebooking>
+            <StudySchedule></StudySchedule>
           </UserProtectedRoute>
         }/>
         
@@ -138,12 +138,12 @@ const App = () => {
             <AdminRequest></AdminRequest>
           </AdminProtectedRoute>
         }/>
-        <Route path='/adminfood' element={
+        <Route path='/coursemanagement' element={
           <AdminProtectedRoute>
             <Adminfood></Adminfood>
           </AdminProtectedRoute>
         }/>
-        <Route path='/admintables' element={
+        <Route path='/schedulemanagement' element={
           <AdminProtectedRoute>
             <Admintables></Admintables>
           </AdminProtectedRoute>
